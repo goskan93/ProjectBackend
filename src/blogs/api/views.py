@@ -26,12 +26,12 @@ class BlogListView(ListAPIView):
 
 
 @api_view(['POST'])
-@authentication_classes([SessionAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def addBlog(request):
     # request.data is like dictionary
-    serializer = BlogSerializer(data=request.data)
     breakpoint()
+    serializer = BlogSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(UserId=request.user)
         # serializer.save()
