@@ -6,7 +6,7 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 from rest_framework import status
 from rest_framework.response import Response
 from blogs.models import Blog, Language, Country
-from .serializers import BlogSerializer, LanguageSerializer, CountrySerializer
+from .serializers import BlogSerializer, LanguageSerializer, CountrySerializer, UsersBlogsSerializer
 import pdb
 
 
@@ -31,6 +31,16 @@ class BlogListView(ListAPIView):
     # lekcja 12 query list of blogs - ale mysle zeby jakos zrobic u mnie filter po jezyku(kilka) i panstwach (jeden lub np max 3)
 
 
+class BlogByUserListView(ListAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = UsersBlogsSerializer
+    authentication_classes = [TokenAuthentication, ]
+    permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        return Blog.objects.filter(UserId=self.request.user)
+
+
 class BlogCreateView(CreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
@@ -46,6 +56,7 @@ class BlogCreateView(CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response({'Message': 'You have successfully add your blog.'}, status=status.HTTP_201_CREATED, headers=headers)
+
 
 # second wayto do this
 @api_view(['POST'])
