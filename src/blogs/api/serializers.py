@@ -18,8 +18,5 @@ class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
         fields = ('BlogId', 'DataCreated', 'Name',
-                  'UserId')
-        # , 'Countries', 'Languages'
+                  'UserId', 'Countries', 'Languages')
         read_only_fields = ('UserId',)
-        # fields = ('id', 'userId', 'name', 'website', 'youtube',
-        #           'instagram', 'facebook', 'countries')

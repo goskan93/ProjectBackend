@@ -36,12 +36,17 @@ class Blog(models.Model):
     UserId = models.ForeignKey(
         User, on_delete=models.CASCADE, default=uuid.uuid4, editable=False)
     Name = models.CharField(max_length=120, default="")
-    # website = models.CharField(max_length=120, blank=True, default="")
-    # youtube = models.CharField(max_length=120, blank=True, default="")
-    # instagram = models.CharField(max_length=120, blank=True, default="")
-    # facebook = models.CharField(max_length=120, blank=True, default="")
-    # Countries = models.ManyToManyField(Country)
-    # Languages = models.ManyToManyField(Language)
+    # Website = models.CharField(max_length=120, blank=True, default="")
+    # Youtube = models.CharField(max_length=120, blank=True, default="")
+    # Instagram = models.CharField(max_length=120, blank=True, default="")
+    # Facebook = models.CharField(max_length=120, blank=True, default="")
+    # About = models.TextField(blank=True, default="", max_length=500)
+    # flaTravelWithChildren = model.BooleanField(default=False)
+    # flaTravelWithAnimals = model.BooleanField(default=False)
+    # flaOrganizeTrips = model.BooleanField(default=False)
+    # Photo = models.TextField(blank=True, default="")
+    Countries = models.ManyToManyField(Country)
+    Languages = models.ManyToManyField(Language)
 
     def __str__(self):
         return self.Name
