@@ -1,13 +1,15 @@
 {
     "editor.formatOnSave": true,
-    "python.linting.pycodestyleEnabled": true,
+    // "python.linting.pycodestyleEnabled": true,
     "python.linting.pylintPath": "C:/Users/agropc/AppData/Local/Programs/Python/Python38-32/Scripts/",
     "python.linting.pycodestyleArgs": [
         "--ignore=E501"
     ],
     "python.linting.pylintArgs": [
         "--load-plugins=pylint_django",
-        "pylint_django"
+        "pylint_django",
+        "--errors-only",
+        "--disable=C0111"
     ],
     "python.linting.pylintEnabled": true
 }
