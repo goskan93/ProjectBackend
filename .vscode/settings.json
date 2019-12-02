@@ -6,7 +6,7 @@
         "--ignore=E501"
     ],
     "python.linting.pylintArgs": [
-        "--load-plugins",
+        "--load-plugins=pylint_django",
         "pylint_django"
     ],
     "python.linting.pylintEnabled": true

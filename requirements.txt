@@ -1,0 +1,7 @@
+django
+rest-framework
+pdb
+pylint-django
+rest_auth
+allauth
+corsheaders
