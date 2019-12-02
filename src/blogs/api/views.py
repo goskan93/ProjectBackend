@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateAPIView
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
@@ -39,6 +39,13 @@ class BlogByUserListView(ListAPIView):
 
     def get_queryset(self):
         return Blog.objects.filter(UserId=self.request.user)
+
+class BlogView(RetrieveUpdateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    authentication_classes = [TokenAuthentication, ]
+    permission_classes = [IsAuthenticated, ]
+    lookup_field = 'BlogId'
 
 
 class BlogCreateView(CreateAPIView):
