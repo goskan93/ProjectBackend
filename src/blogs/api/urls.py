@@ -8,5 +8,6 @@ urlpatterns = [
     path('CreateBlog/', BlogCreateView.as_view()),
     path('GetUsersBlogs/', BlogByUserListView.as_view()),
     path('GetBlog/<uuid:BlogId>', BlogView.as_view()),
+    path('UpdateBlog/<uuid:BlogId>', BlogView.as_view()),
     # path('AddBlog/', addBlog),
 ]
