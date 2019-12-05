@@ -23,12 +23,27 @@ class CountryListView(ListAPIView):
 
 
 class BlogListView(ListAPIView):
-    queryset = Blog.objects.all()
+    # queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    # authentication_classes = [TokenAuthentication, ]
     permission_classes = [IsAuthenticatedOrReadOnly, ]
-    # filter_backends = [SearchFilter, ]
-    # search_fields = ['Name']
-    # lekcja 12 query list of blogs - ale mysle zeby jakos zrobic u mnie filter po jezyku(kilka) i panstwach (jeden lub np max 3)
+
+    def get_queryset(self):
+        """Returns a list of of People that match the critera"""
+        # get query parameters
+        # countries = self.request.query_params.get('Countries', None)
+        # languages = self.request.query_params.get('Languages', None)
+        countries = self.request.GET.getlist('Countries')
+        languages = self.request.GET.getlist('Languages')
+        # return the filter set based on parameters sent
+        if countries and languages:
+            return Blog.objects.filter(Countries__id__in=countries).filter(Languages__id__in=languages)
+        elif countries and not languages:
+            return Blog.objects.filter(Countries__id__in=countries)
+        elif not countries and languages:
+            return Blog.objects.filter(Languages__id__in=languages)
+        else:
+            return Blog.objects.all()  # returns everyone if no filters set
 
 
 class BlogByUserListView(ListAPIView):
