@@ -17,8 +17,8 @@ class CountrySerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ('BlogId', 'DataCreated', 'Name',
-                  'UserId', 'Countries', 'Languages')
+        fields = ('BlogId', 'Name', 'Website', 'Youtube', 'Instagram', 'Facebook', 'About',
+                'flaTravelWithChildren', 'flaTravelWithAnimals', 'flaOrganizeTrips', 'Countries', 'Languages')
         read_only_fields = ('UserId',)
 
 

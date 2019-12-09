@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
@@ -55,7 +55,7 @@ class BlogByUserListView(ListAPIView):
     def get_queryset(self):
         return Blog.objects.filter(UserId=self.request.user)
 
-class BlogView(RetrieveUpdateAPIView):
+class BlogView(RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
     authentication_classes = [TokenAuthentication, ]
@@ -78,18 +78,3 @@ class BlogCreateView(CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response({'Message': 'You have successfully add your blog.'}, status=status.HTTP_201_CREATED, headers=headers)
-
-
-# second wayto do this
-@api_view(['POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
-def addBlog(request):
-    # request.data is like dictionary
-    breakpoint()
-    serializer = BlogSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save(UserId=request.user)
-        # serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
