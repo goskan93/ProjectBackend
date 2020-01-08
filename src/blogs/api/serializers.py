@@ -17,12 +17,12 @@ class CountrySerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ('BlogId', 'Name', 'Website', 'Youtube', 'Instagram', 'Facebook', 'About',
-                'flaTravelWithChildren', 'flaTravelWithAnimals', 'flaOrganizeTrips', 'Countries', 'Languages')
-        read_only_fields = ('UserId',)
+        fields = ('blogId', 'name', 'website', 'youtube', 'instagram', 'facebook', 'about',
+                'flaTravelWithChildren', 'flaTravelWithAnimals', 'flaOrganizeTrips', 'countries', 'languages')
+        read_only_fields = ('userId',)
 
 
 class UsersBlogsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ('BlogId', 'Name')
+        fields = ('blogId', 'name')

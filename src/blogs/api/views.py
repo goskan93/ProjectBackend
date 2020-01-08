@@ -33,8 +33,8 @@ class BlogListView(ListAPIView):
         # get query parameters
         # countries = self.request.query_params.get('Countries', None)
         # languages = self.request.query_params.get('Languages', None)
-        countries = self.request.GET.getlist('Countries')
-        languages = self.request.GET.getlist('Languages')
+        countries = self.request.GET.getlist('countries')
+        languages = self.request.GET.getlist('languages')
         # return the filter set based on parameters sent
         if countries and languages:
             return Blog.objects.filter(Countries__id__in=countries).filter(Languages__id__in=languages)
@@ -60,7 +60,7 @@ class BlogView(RetrieveUpdateDestroyAPIView):
     serializer_class = BlogSerializer
     authentication_classes = [TokenAuthentication, ]
     permission_classes = [IsAuthenticated, ]
-    lookup_field = 'BlogId'
+    lookup_field = 'blogId'
 
 
 class BlogCreateView(CreateAPIView):
@@ -78,3 +78,5 @@ class BlogCreateView(CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response({'Message': 'You have successfully add your blog.'}, status=status.HTTP_201_CREATED, headers=headers)
+
+

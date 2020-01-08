@@ -1,11 +1,7 @@
 from django.db import models
-import uuid
 from django.utils.timezone import now
-# from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
-
-# TODO: user have id uuid
-
+import uuid
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -28,25 +24,25 @@ class Country(models.Model):
 
 
 class Blog(models.Model):
-    BlogId = models.UUIDField(
+    blogId = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    DataCreated = models.DateField(
+    dataCreated = models.DateField(
         editable=False, auto_now=False, auto_now_add=True)
-    DataUpdated = models.DateField(auto_now=True, auto_now_add=False)
-    UserId = models.ForeignKey(
+    dataUpdated = models.DateField(auto_now=True, auto_now_add=False)
+    userId = models.ForeignKey(
         User, on_delete=models.CASCADE, default=uuid.uuid4, editable=False)
-    Name = models.CharField(max_length=120, default="")
-    Website = models.CharField(max_length=120, blank=True, default="")
-    Youtube = models.CharField(max_length=120, blank=True, default="")
-    Instagram = models.CharField(max_length=120, blank=True, default="")
-    Facebook = models.CharField(max_length=120, blank=True, default="")
-    About = models.TextField(blank=True, default="", max_length=500)
+    name = models.CharField(max_length=120, default="")
+    website = models.CharField(max_length=120, blank=True, default="")
+    youtube = models.CharField(max_length=120, blank=True, default="")
+    instagram = models.CharField(max_length=120, blank=True, default="")
+    facebook = models.CharField(max_length=120, blank=True, default="")
+    about = models.TextField(blank=True, default="", max_length=500)
     flaTravelWithChildren = models.BooleanField(default=False)
     flaTravelWithAnimals = models.BooleanField(default=False)
     flaOrganizeTrips = models.BooleanField(default=False)
     # Photo = models.TextField(blank=True, default="")
-    Countries = models.ManyToManyField(Country)
-    Languages = models.ManyToManyField(Language)
+    countries = models.ManyToManyField(Country)
+    languages = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.Name
+        return self.name
